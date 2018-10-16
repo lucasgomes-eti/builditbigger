@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -50,6 +51,11 @@ public class EndpointAsyncTask extends AsyncTask<Context, Void, String> {
     protected void onPostExecute(String s) {
         Intent intent = new Intent(context, JokeVisualizer.class);
         intent.putExtra(JokeVisualizer.JOKE_KEY, JokeTeller.tellJoke());
-        context.startActivity(intent);
+        try {
+            context.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }
